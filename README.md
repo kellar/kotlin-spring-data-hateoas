@@ -114,3 +114,54 @@ $ curl -v localhost:8080/people/2
 * Curl_http_done: called premature == 0
 * Connection #0 to host localhost left intact
 
+$ curl -X POST localhost:8080/people -d '{"firstName": "Ford", "lastName": "Prefect"}' -H "Content-Type: application/json"
+{
+  "firstName" : "Ford",
+  "lastName" : "Prefect",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/people/2"
+    },
+    "person" : {
+      "href" : "http://localhost:8080/people/2"
+    }
+  }
+}
+
+$ curl localhost:8080/people/2
+{
+  "firstName" : "Ford",
+  "lastName" : "Prefect",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/people/2"
+    },
+    "person" : {
+      "href" : "http://localhost:8080/people/2"
+    }
+  }
+}
+
+$ curl localhost:8080/people/search/findByLastName?lastName=Prefect
+{
+  "_embedded" : {
+    "people" : [ {
+      "firstName" : "Ford",
+      "lastName" : "Prefect",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/people/2"
+        },
+        "person" : {
+          "href" : "http://localhost:8080/people/2"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/people/search/findByLastName?lastName=Prefect"
+    }
+  }
+}
+
